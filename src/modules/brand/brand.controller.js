@@ -16,10 +16,6 @@ const __dirname = dirname(__filename);
 
 const AddBrand = catchErorr(async(req,res)=>{
     req.body.logo = req.file.filename
-    console.log(req.file);
-    console.log(req.file.filename);
-    console.log(req.body.logo);
-    
     req.body.createdBy = req.user._id
     req.body.slug =slugify(req.body.name)
     let brand = new Brand(req.body)
@@ -54,11 +50,6 @@ const UpdateBrand =catchErorr( async(req,res)=>{
             
             req.body.logo = req.file.filename; 
         }
-    // if(req.file) req.body.logo = req.file.fileName
-        console.log(req.body);
-        console.log(req.file);
-        
-    return '1'
     let UpdateBrand = await Brand.findByIdAndUpdate(req.params.id,req.body,{new:true})
 
     UpdateBrand || next(new AppErorr('BrandId Not Found'),404)
