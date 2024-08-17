@@ -5,9 +5,14 @@ import { createCashOrder, createToCheckOut, getAllOrdersOfUser, getAllOrdersOfUs
 
 const routerOrder = Router({mergeParams:true}) 
 routerOrder.route('/:id')
+// !to create Order do this
 .post(ProtectAllRoutes,authForAdminOrUser('User','Admin'),createCashOrder)
+
+// !to Get Order do this but you must be Admin
 routerOrder.get('/Adminstrator',ProtectAllRoutes,authForAdminOrUser('Admin'),getAllOrdersUsersByAdmin)
+// !to Get Order do this User Or Admin
 routerOrder.get('/orders',ProtectAllRoutes,authForAdminOrUser('User','Admin'),getAllOrdersOfUser) 
+
 routerOrder.get('/checkOut',getCreateSessionForPay) 
 
 

@@ -15,8 +15,8 @@ const stripe = new Stripe('sk_test_51Po40gJv2mEJYEHUXheUsVPsAVcRQLm9RZ07BAt3VxxT
 
 const app = express()
 const port = process.env.PORT || 3000
-
-app.post('/api/webhook', express.raw({type: 'application/json'}), catchErorr(async(req, res,next) => {
+// ^ this Api About api Webhook ^
+app.post('/api/webhook', express.raw({type:'application/json'}), catchErorr(async(req, res,next) => {
     const sig = req.headers['stripe-signature'].toString()
   
     let event = stripe.webhooks.constructEvent(req.body, sig, 'whsec_02hBBRi2wdrze0FhOVB28rFRiDyJjnx6');
@@ -80,17 +80,6 @@ app.post('/api/webhook', express.raw({type: 'application/json'}), catchErorr(asy
     // Return a 200 res to acknowledge receipt of the event
     res.json({message:"succses",checkoutSessionCompleted});
   }));
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.use(cors())
