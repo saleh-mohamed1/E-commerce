@@ -23,7 +23,7 @@ const  schema = new Schema({
 
 
 schema.post('init',function(doc){
-    doc.logo = 'http://localhost:3000/uploads/brand/' + doc.logo
+    doc.logo = 'https://e-commerce-delta-azure.vercel.app/uploads/brand/' + doc.logo
 })
 
 

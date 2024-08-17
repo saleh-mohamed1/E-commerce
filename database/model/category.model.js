@@ -22,7 +22,7 @@ const  schema = new Schema({
 },{timestamps:true,versionKey:false})
 
 schema.post('init',function(doc){
-    if(doc.image) doc.image = 'http://localhost:3000/uploads/category/' + doc.image
+    if(doc.image) doc.image = 'https://e-commerce-delta-azure.vercel.app/uploads/category/' + doc.image
 })
 
 

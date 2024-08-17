@@ -76,8 +76,8 @@ schema.pre('findOne',function(){
 
 
 schema.post('init',function(doc){
-    if(doc.imageCover) doc.imageCover = 'http://localhost:3000/uploads/products/' + doc.imageCover
-    if(doc.images) doc.images =   doc.images.map(img => 'http://localhost:3000/uploads/products/' + img) 
+    if(doc.imageCover) doc.imageCover = 'https://e-commerce-delta-azure.vercel.app/uploads/products/' + doc.imageCover
+    if(doc.images) doc.images =   doc.images.map(img => 'https://e-commerce-delta-azure.vercel.app/uploads/products/' + img) 
 })
 
 

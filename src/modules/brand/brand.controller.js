@@ -29,7 +29,6 @@ const GetAllBrands =catchErorr( async(req,res)=>{
     let brands = await apiFeature.mongoosequery
     // let brands = await Brand.find()
     res.json({message:"Success For Get All Brands",brands})
-
 })
 const getBrand = catchErorr(async(req,res)=>{
     let brand = await Brand.findById(req.params.id)
@@ -47,7 +46,6 @@ const UpdateBrand =catchErorr( async(req,res)=>{
                 fs.unlinkSync(oldImagePath); 
             }
             console.log(oldImagePath);
-            
             req.body.logo = req.file.filename; 
         }
     let UpdateBrand = await Brand.findByIdAndUpdate(req.params.id,req.body,{new:true})
