@@ -15,7 +15,11 @@ const __dirname = dirname(__filename);
 
 
 const AddBrand = catchErorr(async(req,res)=>{
-    req.body.logo = req.file.fileName
+    req.body.logo = req.file.filename
+    console.log(req.file);
+    console.log(req.file.filename);
+    console.log(req.body.logo);
+    
     req.body.createdBy = req.user._id
     req.body.slug =slugify(req.body.name)
     let brand = new Brand(req.body)
