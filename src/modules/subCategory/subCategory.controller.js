@@ -1,5 +1,5 @@
 import slugify from "slugify";
-import { SubCategory } from "../../../database/model/subCategory.model.js";
+import {SubCategory} from "../../../database/model/subCategory.model.js";
 import { catchErorr } from "../../middleware/catchErorr.js";
 import { AppErorr } from "../../middleware/AppErorr.js";
 import { deleteOne } from "../../refactor/deleteOne.js";
@@ -9,19 +9,18 @@ import { ApiFeature } from "../../utils/apiFeatures.js";
 
 
 const addSubCategory = catchErorr(async(req,res)=>{
-    let SubCategory = new SubCategory(req.body)
-    SubCategory.slug =slugify(SubCategory.name)
-    console.log(SubCategory);
-    await SubCategory.save()
-    console.log(SubCategory);
-    res.json({message:"Success For Add",SubCategory})
+    req.body.createdBy = req.user._id
+    req.body.slug =slugify(req.body.name)
+    let subCategory = new SubCategory(req.body)    
+    console.log(req.body);    
+    await subCategory.save()
+    res.json({message:"Success For Add",subCategory})
 })
 const getAllSubCategory =catchErorr( async(req,res)=>{
     let fileFilter = {}
     if (req.params.category) fileFilter.category = req.body.category 
     let apiFeature = new ApiFeature(Category.find(fileFilter),req.query)
     .pagination().selectField().search().sort().filter()
-
     let SubCategories = await apiFeature.mongoosequery
     res.json({message:"Success For Get All SubCategories",pageNumber:apiFeature.pageNumber,SubCategories})
 

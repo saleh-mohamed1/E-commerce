@@ -15,10 +15,10 @@ const routerBrand = Router()
 
 routerBrand.route('/')
 .post(ProtectAllRoutes,authForAdminOrUser('Admin'),uploadSingleFile('brand','logo'),AddBrand)
-.get(ProtectAllRoutes,authForAdminOrUser('User','Admin'),GetAllBrands)
+.get(GetAllBrands)
 
 routerBrand.route('/:id')
-.get(ProtectAllRoutes,authForAdminOrUser('User','Admin'),getBrand)
+.get(getBrand)
 .put(ProtectAllRoutes,authForAdminOrUser('Admin'),uploadSingleFile('brand','logo'),UpdateBrand)
 .delete(ProtectAllRoutes,authForAdminOrUser('Admin'),DelteBrand)
 

@@ -5,17 +5,21 @@ import { AppErorr } from "../../middleware/AppErorr.js";
 import { deleteOne } from "../../refactor/deleteOne.js";
 import { ApiFeature } from "../../utils/apiFeatures.js";
 
+import path, { dirname } from "path";
+import fs from 'fs';
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 
 const AddBrand = catchErorr(async(req,res)=>{
-    let brand = new Brand(req.body)
     req.body.logo = req.file.fileName
-
-    brand.slug =slugify(brand.name)
-    console.log(brand);
+    req.body.createdBy = req.user._id
+    req.body.slug =slugify(req.body.name)
+    let brand = new Brand(req.body)
     await brand.save()
-    console.log(brand);
     res.json({message:"Success For Add",brand})
 })
 const GetAllBrands =catchErorr( async(req,res)=>{
@@ -33,8 +37,24 @@ const getBrand = catchErorr(async(req,res)=>{
     !brand ||res.json({message:"Success For Get Brand",brand})
 })
 const UpdateBrand =catchErorr( async(req,res)=>{
+    let brand = await Brand.findById(req.params.id);
+    if (!brand) return next(new AppErorr('brandId Not Found', 404));
     if(req.body.slug) req.body.slug = slugify(req.body.name)
-    if(req.file) req.body.logo = req.file.fileName
+        if (req.file) {
+            let oldImageOfBrand = path.basename(brand.logo);
+            const oldImagePath = path.join(__dirname, '../../../uploads/brand/', oldImageOfBrand);
+            if (fs.existsSync(oldImagePath)) {
+                fs.unlinkSync(oldImagePath); 
+            }
+            console.log(oldImagePath);
+            
+            req.body.logo = req.file.filename; 
+        }
+    // if(req.file) req.body.logo = req.file.fileName
+        console.log(req.body);
+        console.log(req.file);
+        
+    return '1'
     let UpdateBrand = await Brand.findByIdAndUpdate(req.params.id,req.body,{new:true})
 
     UpdateBrand || next(new AppErorr('BrandId Not Found'),404)

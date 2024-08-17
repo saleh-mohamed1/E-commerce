@@ -3,10 +3,10 @@ import { Category } from "../../../database/model/category.model.js"
 import { catchErorr } from "../../middleware/catchErorr.js";
 import { AppErorr } from "../../middleware/AppErorr.js";
 import { deleteOne } from "../../refactor/deleteOne.js";
-import fs from 'fs';
-import { fileURLToPath } from "url";
 import { ApiFeature } from "../../utils/apiFeatures.js";
 import path, { dirname } from "path";
+import fs from 'fs';
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

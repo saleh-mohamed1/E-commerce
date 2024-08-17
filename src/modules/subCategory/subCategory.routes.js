@@ -13,7 +13,7 @@ import { authForAdminOrUser, ProtectAllRoutes } from "../auth/auth.controller.js
 const routerSubCategory = Router({mergeParams:true})
 
 routerSubCategory.route('/')
-.post(ProtectAllRoutes,authForAdminOrUser('User'),addSubCategory)
+.post(ProtectAllRoutes,authForAdminOrUser('Admin'),addSubCategory)
 .get(ProtectAllRoutes,authForAdminOrUser('User','Admin'),getAllSubCategory)
 routerSubCategory.route('/:id')
 .get(ProtectAllRoutes,authForAdminOrUser('User','Admin'),getSubCategory)

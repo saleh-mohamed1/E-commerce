@@ -13,10 +13,10 @@ routerCategory.use('/:category/subcategories',routerSubCategory)
 
 routerCategory.route('/')
 .post(ProtectAllRoutes,authForAdminOrUser('Admin'),uploadSingleFile('category','image'),Validate(validateCategory),addCategory)
-.get(getAllCategory)
+.get(ProtectAllRoutes,authForAdminOrUser('Admin','User'),getAllCategory)
 
 routerCategory.route('/:id')
-.get(getCategory)
+.get(ProtectAllRoutes,authForAdminOrUser('Admin','User'),getCategory)
 .put(ProtectAllRoutes,authForAdminOrUser('Admin'),uploadSingleFile('category','image'),updateCategory)
 .delete(ProtectAllRoutes,authForAdminOrUser('Admin'),delteCategory)
 
