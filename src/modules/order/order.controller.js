@@ -1,13 +1,13 @@
-import Stripe from 'stripe'
 import { Cart } from "../../../database/model/cart.model.js"
 import { Order } from "../../../database/model/order.model.js"
 import { Product } from "../../../database/model/products.model.js"
 import { User } from "../../../database/model/user.model.js"
 import { AppErorr } from "../../middleware/AppErorr.js"
 import { catchErorr } from "../../middleware/catchErorr.js"
+import Stripe from 'stripe'
 const stripe = new Stripe('sk_test_51Po40gJv2mEJYEHUXheUsVPsAVcRQLm9RZ07BAt3VxxT9Qi5nuKiPD995zR4qsz2sLjMm6NWl6Y97VbrKmrFEyfu00RfVDLq5R');
 const createCashOrder = catchErorr(async(req,res,next)=>{
-    
+        
     // ^get User cart by cart Id
         let cart = await Cart.findById(req.params.id)
         if(!cart) return next(new AppErorr('cart Not Found'),404)
@@ -65,7 +65,6 @@ const getAllOrdersUsersByAdmin = catchErorr(async(req,res,next)=>{
 const createToCheckOut = catchErorr(async(req,res,next)=>{
 
     let cart = await Cart.findById(req.params.cartId)
-    console.log(cart);
     
     if(!cart) return next(new AppErorr('cart Not Found'),404)
     let totalOrderPriceToPay = cart.totalCartPriceAfterDiscount || cart.totalCartPrice
@@ -96,7 +95,7 @@ const createToCheckOut = catchErorr(async(req,res,next)=>{
     res.json({message:"success to CheckOut" ,session})
 })
 const getCreateSessionForPay = catchErorr(async(req,res,next)=>{
-    res.json({message:"success to For Pay"})
+            res.json({message:"success to For Pay"})
 
 })
 
